@@ -22,8 +22,8 @@ avatar_image: /img/profile_picture.jpg
 
 #-------------------------------
 # Contact links
-linkedln: "https://linkedin.com/in/carlos-h-cervantes" # Add your linkedln handle
-github: "https://github.com/navybolic"  # Add your github handle
+linkedln: "https://linkedin.com/in/carlos-h-cervantes"
+github: "https://github.com/navybolic"  
 
 paginate: 6
 paginate_path: "/page/:num"
