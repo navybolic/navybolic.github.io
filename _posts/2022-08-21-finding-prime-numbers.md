@@ -84,7 +84,7 @@ print(multiples)
 
 The next part is the magic I spoke about earlier, we are using the special set functionality **difference_update** which removes any values from our number range that are multiples of the number we just checked. The reason we are doing this is because if a number is a multiple of anything other than 1 or itself then it is **not a prime number** and can remove it from the list to be checked.
 
-Before we apply the **difference_update**, let's look at our two sets.
+Before we apply the **difference_update**, let us look at our two sets.
 
 ```python
 print(number_range)
