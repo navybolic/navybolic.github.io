@@ -40,12 +40,8 @@
           localStorage.setItem("capx-trainer-v1", JSON.stringify(state));
           setSyncStatus("Loaded from Drive");
           if (typeof renderHome === "function") renderHome();
-        } else {
-          setSyncStatus("This device is up to date");
-        }
-      } else {
-        setSyncStatus("Drive connected, no saved session yet");
-      }
+        } else setSyncStatus("This device is up to date");
+      } else setSyncStatus("Drive connected, no saved session yet");
     } catch (err) {
       setSyncStatus("Could not reach Drive — using this device");
     }
@@ -60,7 +56,6 @@
       return;
     }
     localStorage.setItem(SYNC_URL_KEY, v);
-    setSyncStatus("Drive sync connected — talking to Drive…");
     alert("Saved the Drive address on this device. Checking Drive now.");
     cloudLoad().then(cloudSave).then(() => {
       alert(($("sync-status") && $("sync-status").textContent) || "Finished talking to Drive.");
@@ -74,16 +69,24 @@
   const origSave = window.saveState;
   window.saveState = function () {
     if (typeof origSave === "function") origSave();
-    else if (typeof state !== "undefined") {
-      localStorage.setItem("capx-trainer-v1", JSON.stringify(state));
-    }
+    else if (typeof state !== "undefined") localStorage.setItem("capx-trainer-v1", JSON.stringify(state));
     queueCloudSave();
   };
   const origAnswer = window.answer;
   if (typeof origAnswer === "function") {
-    window.answer = function (key) {
-      origAnswer(key);
-      queueCloudSave();
+    window.answer = function (key) { origAnswer(key); queueCloudSave(); };
+  }
+  const origStart = window.startNew;
+  if (typeof origStart === "function") {
+    window.startNew = function (opts) {
+      origStart(opts);
+      const slot = (opts && opts.slot) || (typeof state !== "undefined" && state.bankSlot) || "A";
+      const forms = window.CAPX_BANK && window.CAPX_BANK.bank_forms;
+      if (forms && forms[slot] && (!opts || !opts.domain || opts.domain === "ALL") && typeof state !== "undefined") {
+        state.formIds = forms[slot].slice();
+        state.index = 0;
+        if (typeof renderQuestion === "function") renderQuestion();
+      }
     };
   }
   function bind() {
@@ -92,10 +95,9 @@
     if (a) a.onclick = () => connectSync("sync-url");
     if (b) b.onclick = () => connectSync("sync-url-home");
     const saved = localStorage.getItem(SYNC_URL_KEY) || "";
-    ["sync-url", "sync-url-home"].forEach((id) => {
-      const el = $(id);
-      if (el && !el.value) el.value = saved;
-    });
+    ["sync-url", "sync-url-home"].forEach((id) => { const el = $(id); if (el && !el.value) el.value = saved; });
+    const g = $("guide-btn");
+    if (g && typeof printStudy === "function") g.onclick = printStudy;
     cloudLoad();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bind);
