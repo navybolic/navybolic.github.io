@@ -140,6 +140,10 @@ function renderHome() {
   const t = tally();
   $("home-tally").textContent = `Saved session: ${t.right} right / ${t.wrong} wrong / ${t.blank} blank of ${t.total || 0}`;
   $("continue-btn").disabled = !state.formIds.length;
+  $("mode").value = state.timed ? "timed" : "untimed";
+  $("slot").value = state.bankSlot || "A";
+  $("domain").value = state.filterDomain || "ALL";
+  paintTimer();
 }
 
 function showQuiz() {
@@ -254,14 +258,16 @@ function go(delta) {
 
 function jumpTo() {
   const map = $("navq");
-  const raw = $("jump").value;
-  const n = parseInt(raw, 10);
+  const n = parseInt($("jump").value, 10);
   const ids = currentIds();
   if (n >= 1 && n <= ids.length) {
     state.index = n - 1;
+    $("jump").value = "";
+    renderQuestion();
+    map.classList.remove("hidden");
+    return;
   }
-  map.classList.toggle("hidden", false);
-  renderQuestion();
+  map.classList.toggle("hidden");
 }
 
 function paintNav(ids) {
@@ -401,6 +407,15 @@ function wire() {
   $("mode-live").onchange = () => {
     state.timed = $("mode-live").value === "timed";
     if (state.timed && state.remainingSec <= 0) state.remainingSec = 3 * 60 * 60;
+    $("mode").value = state.timed ? "timed" : "untimed";
+    saveState();
+    paintTimer();
+  };
+  $("mode").onchange = () => {
+    state.timed = $("mode").value === "timed";
+    if (state.timed && state.remainingSec <= 0) state.remainingSec = 3 * 60 * 60;
+    const live = $("mode-live");
+    if (live) live.value = state.timed ? "timed" : "untimed";
     saveState();
     paintTimer();
   };
