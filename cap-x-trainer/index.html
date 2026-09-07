@@ -19,14 +19,12 @@
   </header>
   <main>
     <section id="view-home" class="card">
-      <p>Main pool: <b id="pool-count">—</b> items. Banks A / B / C are three 115-question forms (18 / 20 / 24 / 15 / 18 / 12 / 8). Official exam: 100 scored + 15 ungraded pilots, 3 hours, closed book.</p>
+      <p>Main pool: <b id="pool-count">—</b> items. Banks A / B / C are three 115-question forms (18 / 20 / 24 / 15 / 18 / 12 / 8).</p>
       <p id="home-tally"></p>
       <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin: 16px 0;">
         <div>
           <label for="slot">Bank slot</label>
-          <select id="slot">
-            <option>A</option><option>B</option><option>C</option>
-          </select>
+          <select id="slot"><option>A</option><option>B</option><option>C</option></select>
         </div>
         <div>
           <label for="mode">Timer</label>
@@ -59,7 +57,7 @@
         <input id="sync-url-home" type="text" placeholder="Paste Apps Script web app URL here" style="min-width:240px;flex:1" />
         <button type="button" id="sync-save-home-btn">Use this Drive sync</button>
       </div>
-      <p class="hint footer">Unlisted quiz. Bookmark this page. Banks A, B, and C are different 115-question forms from a 173-item pool.</p>
+      <p class="hint footer">Unlisted quiz. Citations open ABOK chapter PDFs and the CAP Study Guide in your Drive books folder.</p>
     </section>
     <section id="view-quiz" class="hidden">
       <div class="card">
@@ -105,6 +103,9 @@
     <div id="print-root" class="print-only"></div>
   </main>
   <script src="data/questions.js"></script>
+  <script src="extra_bank_1.js"></script>
+  <script src="extra_bank_2.js"></script>
+  <script src="extra_merge.js"></script>
   <script src="app.js"></script>
   <script src="capx-sync.js"></script>
 </body>
