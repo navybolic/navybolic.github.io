@@ -5,28 +5,6 @@ layout: default
     <div class="row">
         <div class="col col-12 col-t-12">
             <div class="row">
-                <article class="article col col-12 col-t-6">
-                    <div class="article-box">
-                        <div class="article-head">
-                            <a href="/cap-x-trainer/" class="article-image" style="background-image: url(/img/posts/cap-x-trainer.svg)"></a>
-                        </div>
-                        <div class="article-content">
-                            <div class="article-info">
-                                <div class="article-date">
-                                    <span class="page__meta"><i class="ion ion-md-time"></i> Practice exam</span>
-                                </div>
-                                <div class="article-tag">
-                                    <a href="/tags#CAP" class="tag">CAP</a>
-                                    <a href="/tags#Analytics" class="tag">Analytics</a>
-                                </div>
-                            </div>
-                            <h2 class="article-title">
-                                <a href="/cap-x-trainer/">CAP-X Trainer</a>
-                            </h2>
-                            <p class="article-excerpt">115-question CAP-Expert practice exam with timed or untimed mode, rationales for every option, and progress you can pick up later.</p>
-                        </div>
-                    </div>
-                </article>
                 {% for post in paginator.posts %}
                     {% include post-card.html %}
                 {% endfor %}
