@@ -63,8 +63,28 @@
     setSyncStatus("Drive sync connected — talking to Drive…");
     alert("Saved the Drive address on this device. Checking Drive now.");
     cloudLoad().then(cloudSave).then(() => {
-      alert(( $("sync-status") && $("sync-status").textContent) || "Finished talking to Drive.");
+      alert(($("sync-status") && $("sync-status").textContent) || "Finished talking to Drive.");
     });
+  }
+  function queueCloudSave() {
+    if (typeof state !== "undefined") state.updatedAt = Date.now();
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(cloudSave, 900);
+  }
+  const origSave = window.saveState;
+  window.saveState = function () {
+    if (typeof origSave === "function") origSave();
+    else if (typeof state !== "undefined") {
+      localStorage.setItem("capx-trainer-v1", JSON.stringify(state));
+    }
+    queueCloudSave();
+  };
+  const origAnswer = window.answer;
+  if (typeof origAnswer === "function") {
+    window.answer = function (key) {
+      origAnswer(key);
+      queueCloudSave();
+    };
   }
   function bind() {
     const a = $("sync-save-btn");
@@ -76,8 +96,7 @@
       const el = $(id);
       if (el && !el.value) el.value = saved;
     });
-    if (localStorage.getItem(SYNC_URL_KEY)) cloudLoad();
-    else setSyncStatus("Drive sync off — paste the script URL below");
+    cloudLoad();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", bind);
   else setTimeout(bind, 250);
