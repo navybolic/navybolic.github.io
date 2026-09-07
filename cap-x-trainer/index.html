@@ -17,7 +17,6 @@
       <button id="home-btn">Home</button>
     </div>
   </header>
-
   <main>
     <section id="view-home" class="card">
       <p>Main pool: <b id="pool-count">—</b> items. A form draws <b>115</b> questions using CAP-X domain weights (18 / 20 / 24 / 15 / 18 / 12 / 8). Official exam: 100 scored + 15 ungraded pilots, 3 hours, closed book.</p>
@@ -54,9 +53,9 @@
         <button class="primary" id="start-btn">Start new form</button>
         <button id="continue-btn">Continue saved session</button>
       </div>
-      <p class="hint footer">Progress lives in this browser. Use Export / Import JSON to move to another computer or drop the file in your CAP Drive folder. Original ChatGPT coach files were copied, not overwritten.</p>
+      <p id="sync-status" class="hint footer">Checking Drive sync…</p>
+      <p class="hint footer">Unlisted quiz. Bookmark this page. After you paste the Apps Script URL once, answers save to your CAP-X Trainer Data Sheet and follow you to the next device.</p>
     </section>
-
     <section id="view-quiz" class="hidden">
       <div class="card">
         <div class="row" style="justify-content: space-between;">
@@ -91,11 +90,14 @@
             <label class="filelab">Restore progress file <input id="import-file" type="file" accept="application/json" /></label>
             <button id="print-btn">Print / PDF this form</button>
           </div>
-          <p class="cite">That file picker only reloads a progress JSON you saved before. It is not how questions are loaded.</p>
+          <div class="row" style="margin-top:10px">
+            <input id="sync-url" type="text" placeholder="Apps Script web app URL" style="min-width:240px;flex:1" />
+            <button id="sync-save-btn">Use this Drive sync</button>
+          </div>
+          <p class="cite">Paste the Web app URL from the CAP-X Trainer Data Sheet (Extensions → Apps Script → Deploy). Manual file export is only a backup.</p>
         </details>
       </div>
     </section>
-
     <div id="print-root" class="print-only"></div>
   </main>
   <script src="data/questions.js"></script>
