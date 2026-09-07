@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CAP-X Trainer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="appbar">
+    <div>
+      <h1>CAP-X Trainer</h1>
+      <div class="meta">CAP-Expert practice · 115-question forms · Drive-backed bank copy</div>
+    </div>
+    <div class="row no-print">
+      <span id="timer" class="timer">Untimed</span>
+      <button id="home-btn">Home</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="view-home" class="card">
+      <p>Main pool: <b id="pool-count">—</b> items. A form draws <b>115</b> questions using CAP-X domain weights (18 / 20 / 24 / 15 / 18 / 12 / 8). Official exam: 100 scored + 15 ungraded pilots, 3 hours, closed book.</p>
+      <p id="home-tally"></p>
+      <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin: 16px 0;">
+        <div>
+          <label for="slot">Bank slot</label>
+          <select id="slot">
+            <option>A</option><option>B</option><option>C</option>
+          </select>
+        </div>
+        <div>
+          <label for="mode">Timer</label>
+          <select id="mode">
+            <option value="untimed">Untimed study</option>
+            <option value="timed">Timed 3:00:00</option>
+          </select>
+        </div>
+        <div>
+          <label for="domain">Section filter</label>
+          <select id="domain">
+            <option value="ALL">Full mixed form</option>
+            <option value="I">I Business problem framing</option>
+            <option value="II">II Analytics problem framing</option>
+            <option value="III">III Data</option>
+            <option value="IV">IV Methodology</option>
+            <option value="V">V Model development</option>
+            <option value="VI">VI Deployment</option>
+            <option value="VII">VII Lifecycle</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <button class="primary" id="start-btn">Start new form</button>
+        <button id="continue-btn">Continue saved session</button>
+      </div>
+      <p class="hint footer">Progress lives in this browser. Use Export / Import JSON to move to another computer or drop the file in your CAP Drive folder. Original ChatGPT coach files were copied, not overwritten.</p>
+    </section>
+
+    <section id="view-quiz" class="hidden">
+      <div class="card">
+        <div class="row" style="justify-content: space-between;">
+          <span class="pill" id="qpos"></span>
+          <span class="pill" id="qmeta"></span>
+        </div>
+        <p class="stem" id="stem"></p>
+        <div id="options"></div>
+        <div id="explain" class="explain hidden"></div>
+        <div class="row no-print" style="margin-top: 16px;">
+          <button id="prev-btn">Back</button>
+          <button class="primary" id="next-btn">Next</button>
+          <input id="jump" type="number" min="1" placeholder="#" style="width:72px" />
+          <button id="jump-btn">Go to #</button>
+          <button id="flag-btn">Flag</button>
+        </div>
+        <div id="navq" class="navq no-print hidden" aria-label="Question map"></div>
+        <div class="row no-print" style="margin-top: 10px;">
+          <select id="mode-live">
+            <option value="untimed">Untimed</option>
+            <option value="timed">Timed 3h</option>
+          </select>
+          <button id="shuffle-btn">Shuffle new 115</button>
+          <button id="restart-btn">Restart this form</button>
+          <button class="danger" id="reset-btn">Reset tally</button>
+        </div>
+        <p class="stats" id="live-tally"></p>
+        <details class="more no-print">
+          <summary>More actions</summary>
+          <div class="row" style="margin-top:10px">
+            <button id="export-btn">Save progress file</button>
+            <label class="filelab">Restore progress file <input id="import-file" type="file" accept="application/json" /></label>
+            <button id="print-btn">Print / PDF this form</button>
+          </div>
+          <p class="cite">That file picker only reloads a progress JSON you saved before. It is not how questions are loaded.</p>
+        </details>
+      </div>
+    </section>
+
+    <div id="print-root" class="print-only"></div>
+  </main>
+  <script src="data/questions.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
