@@ -54,7 +54,11 @@
         <button id="continue-btn">Continue saved session</button>
       </div>
       <p id="sync-status" class="hint footer">Checking Drive sync…</p>
-      <p class="hint footer">Unlisted quiz. Bookmark this page. After you paste the Apps Script URL once, answers save to your CAP-X Trainer Data Sheet and follow you to the next device.</p>
+      <div class="row" style="margin-top:10px">
+        <input id="sync-url-home" type="text" placeholder="Paste Apps Script web app URL here" style="min-width:240px;flex:1" />
+        <button type="button" id="sync-save-home-btn">Use this Drive sync</button>
+      </div>
+      <p class="hint footer">Unlisted quiz. Bookmark this page. Paste the script URL once so progress follows you.</p>
     </section>
     <section id="view-quiz" class="hidden">
       <div class="card">
@@ -94,7 +98,6 @@
             <input id="sync-url" type="text" placeholder="Apps Script web app URL" style="min-width:240px;flex:1" />
             <button id="sync-save-btn">Use this Drive sync</button>
           </div>
-          <p class="cite">Paste the Web app URL from the CAP-X Trainer Data Sheet (Extensions → Apps Script → Deploy). Manual file export is only a backup.</p>
         </details>
       </div>
     </section>
